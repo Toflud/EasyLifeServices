@@ -61,4 +61,12 @@ public class DynamoDocumentBridgeTest {
         if(!moved) System.err.println("Failed to moved");
         bridge.scan();
     }
+
+    @Test
+    public void testAddItem() throws Exception {
+        PortFolioV2 portfolio = new PortFolioV2() ;
+        portfolio.setUserId("Christophe") ;
+        portfolio.printListe();
+        portfolio.todo("-- wahou --");
+    }
 }

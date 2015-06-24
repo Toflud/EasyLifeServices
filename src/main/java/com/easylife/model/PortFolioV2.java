@@ -33,6 +33,10 @@ public class PortFolioV2 {
         newItem(PreDefinedListName.maybe.name(), new UserIntent().withContent(content));
     }
 
+    public void todo(String content) {
+        newItem(PreDefinedListName.todo.name(), new UserIntent().withContent(content));
+    }
+
 
 
     public void newItem(String listeName, UserIntent intent) {
