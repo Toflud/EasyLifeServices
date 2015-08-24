@@ -67,6 +67,7 @@ public class DynamoDocumentBridgeTest {
         PortFolioV2 portfolio = new PortFolioV2() ;
         portfolio.setUserId("Christophe") ;
         portfolio.printListe();
-        portfolio.todo("-- wahou --");
+        portfolio.done("Already Done");
+        portfolio.maybe("Could be") ;
     }
 }

@@ -11,6 +11,7 @@ public class PortFolioV2 {
         return bridge.findUserList(getUserId(), listName.toString());
     }
 
+
     public enum PreDefinedListName {
         maybe,todo,done ;
     }
@@ -37,7 +38,7 @@ public class PortFolioV2 {
         newItem(PreDefinedListName.todo.name(), new UserIntent().withContent(content));
     }
 
-
+    public void done(String content) { newItem(PreDefinedListName.done.name(), new UserIntent().withContent(content)); }
 
     public void newItem(String listeName, UserIntent intent) {
         UserList list = bridge.findUserList(userId, listeName) ;
