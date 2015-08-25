@@ -170,4 +170,6 @@ public class DynamoDocumentBridge {
     public void save(UserList list) {
         mapper.save(list);
     }
+
+
 }

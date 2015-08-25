@@ -3,6 +3,7 @@ package com.easylife.controller;
 import com.easylife.Application;
 import com.easylife.model.UserIntent;
 
+import com.easylife.model.UserList;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,10 +23,13 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
@@ -73,6 +77,19 @@ public class PortFolioControllerTest {
                 .contentType(contentType)
                 .content(userIntent))
                 .andExpect(status().isCreated());
+    }
+
+    @Test
+    public void putUserList() throws Exception {
+        UserList list = new UserList().withListeName("TestList").withUserId("Christophe") ;
+        List<UserIntent> internalList = new ArrayList<UserIntent>() ;
+        internalList.add(new UserIntent().withContent("Item 1 (test list)")) ;
+        list.setListe(internalList);
+        String userList = json(list) ;
+        this.mockMvc.perform(put("/user/list/" + list.getListeName())
+                .contentType(contentType)
+                .content(userList))
+                .andExpect(status().isOk()) ;
     }
 
     protected String json(Object o) throws IOException {

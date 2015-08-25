@@ -25,4 +25,9 @@ public class UserIntent {
     public void setContent(String content) {
         this.content = content;
     }
+
+    @Override
+    public String toString() {
+        return "UserItem("+content+")";
+    }
 }

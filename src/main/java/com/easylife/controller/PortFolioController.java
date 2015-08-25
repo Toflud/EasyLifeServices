@@ -16,6 +16,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
  */
 @RestController
 @EnableAutoConfiguration
+@RequestMapping(value="/user/list/{listName}")
 public class PortFolioController {
 
     private final PortFolioV2 portFolioV2 = new PortFolioV2() ; {
@@ -25,19 +26,30 @@ public class PortFolioController {
     @RequestMapping("/")
     @ResponseBody
     String home() {
-        return "EasyLife home !";
+        return "EasyLife API home !";
     }
 
-    @RequestMapping(value = "/user/list/{listName}", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     UserList userList(@PathVariable String listName) {
         return portFolioV2.getUserList(PortFolioV2.PreDefinedListName.valueOf(listName)) ;
     }
 
-    @RequestMapping(value="/user/list/{listName}", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     ResponseEntity newUserIntent(@PathVariable String listName, @RequestBody UserIntent intent) {
         portFolioV2.newItem(PortFolioV2.PreDefinedListName.valueOf(listName).name(), intent);
         // return something acknolede ?
         return new ResponseEntity<>(null, null, HttpStatus.CREATED);
     }
+
+    @RequestMapping(method = RequestMethod.PUT)
+    ResponseEntity putUserList(@PathVariable String listName, @RequestBody UserList userList) {
+        if(!userList.getListeName().equals(listName))
+            return new ResponseEntity(HttpStatus.BAD_REQUEST) ;
+        if(!userList.getUserId().equals(portFolioV2.getUserId()))
+            return new ResponseEntity(HttpStatus.BAD_REQUEST) ;
+        portFolioV2.putUserList(userList) ;
+        return new ResponseEntity(HttpStatus.OK) ;
+    }
+
 
 }

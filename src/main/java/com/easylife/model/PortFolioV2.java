@@ -12,6 +12,7 @@ public class PortFolioV2 {
     }
 
 
+
     public enum PreDefinedListName {
         maybe,todo,done ;
     }
@@ -62,6 +63,10 @@ public class PortFolioV2 {
         bridge.save(list) ;
         newItem(listedest, content);
         return true ;
+    }
+
+    public void putUserList(UserList userList) {
+        bridge.save(userList) ;
     }
 
     public void setUserId(String userId) {
